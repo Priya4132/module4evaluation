@@ -1,7 +1,7 @@
 import { ADD_BOOK_TO_USER_LIST, FETCH_BOOKS_FAILURE, FETCH_BOOKS_REQUEST, FETCH_BOOKS_SUCCESS } from "../actions/booksactions"
 
 const initState={
-    books:[],
+    books:JSON.parse(localStorage.getItem("user"))||[],
     laoding:false,
     error:null
 }
@@ -20,8 +20,10 @@ export const booksReducer=(state=initState,action)=>{
                         ...state, error:action.paylaod
                     }
                     case ADD_BOOK_TO_USER_LIST:
-                        return{...state, books:[...state.books, action.payload]
-                        }
+                        localStorage.setItem("books", JSON.stringify(action.payload))
+                     //  return{...state, books:action.paylaod}
+                     return {...state, books:[...state.books,...action.paylaod]}
+                        
                     default:
                         return state;
     }

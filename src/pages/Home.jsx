@@ -11,7 +11,7 @@ const Home = () => {
  const loading=useSelector((state)=>state.books.loading);
  const error=useSelector((state)=>state.books.error);
  const dispatch=useDispatch();
-    const newBooks=Object.entries(books);
+    const newBooks=Object.entries(books||[]);
     const booksArray=newBooks.map(([key,value])=>({id:key,...value}));
     // console.log(booksArray, "array of books")
     // console.log(booksArray.length, "array of books")
@@ -19,11 +19,11 @@ const Home = () => {
 
     useEffect(()=>{
 dispatch(fetchBooks());
-    },[])
+    },[booksArray])
   return (
 <>
    <Heading textAlign={"center"}>Welcome to  Books Library Management App</Heading> 
-   {user ? <Text color={"blue"}>Welcome {userDetails.email}</Text>:<Text>Welcom Guest</Text>}
+   {/* {user ? <Text color={"blue"}>Welcome {userDetails.email}</Text>:<Text>Welcom Guest</Text>} */}
    {loading && <Text>Loading...</Text>}
    {error && <Text>{error}</Text>}
    

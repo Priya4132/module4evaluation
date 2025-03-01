@@ -8,11 +8,9 @@ const MyBooksPage = () => {
     const user=useSelector((state)=>state.auth.user);
     const userDetails=JSON.parse(localStorage.getItem("user"))||[];
     //console.log(userDetails.uid, "userdetails");
-    const books=useSelector((state)=>state.books.books);
-    const newBooks=Object.entries(books);
-    const booksArray=newBooks.map(([key,value])=>({id:key,...value}));
-    console.log(booksArray, "array of books")
-    console.log(booksArray.length, "length of books")
+   
+    const books=JSON.parse(localStorage.getItem("books"));
+    console.log(books)
 
     const dispatch=useDispatch();
     const navigate=useNavigate();

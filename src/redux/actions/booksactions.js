@@ -12,7 +12,7 @@ export const fetchBooks=()=>async(dispatch)=>{
     dispatch({type:FETCH_BOOKS_REQUEST , loading:true});
     try{
 const res=await axios.get(FIREBASE_URL);
-console.log(res.data)
+//console.log(res.data)
 dispatch({type:FETCH_BOOKS_SUCCESS, payload :res.data})
     }catch(error){
         dispatch({type:FETCH_BOOKS_FAILURE, payload :error.message})
@@ -20,10 +20,15 @@ dispatch({type:FETCH_BOOKS_SUCCESS, payload :res.data})
 }
 
 //action creators for adding book to user list
-export const addBooks=(bookId, userId)=>async(dispatch)=>{
+export const addBooks=(bookId, userId,books)=>async(dispatch)=>{
     try{
-const response=await axios.put(`https://module4evaluation-default-rtdb.firebaseio.com/users/${userId}/myBooks/${bookId}.json`)
-dispatch({type:ADD_BOOK_TO_USER_LIST, payload: response.data})   
+const response=await axios.put(`https://module4evaluation-default-rtdb.firebaseio.com/users/${userId}/myBooks/${bookId}.json`, {
+    userId,
+    ...books
+})
+console.log(response.data)
+dispatch({type:ADD_BOOK_TO_USER_LIST, payload: {bookId,userId,...books}}) 
+//dispatch({type:ADD_BOOK_TO_USER_LIST, payload: {bookId, userId}})   
 }catch(error){
         console.log(error.message)
     }
