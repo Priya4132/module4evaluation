@@ -13,7 +13,7 @@ export const register=(email,password)=>async(dispatch)=>{
     try{
 const userCredentials= await createUserWithEmailAndPassword(auth,email,password);
 const user=userCredentials.user;
-console.log(userCredentials)
+console.log(user, "userDeatails")
 dispatch({type:REGISTER_USER, payload:user});
     }catch(error){
         console.log(error)
